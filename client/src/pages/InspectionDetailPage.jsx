@@ -7,6 +7,77 @@ import LeafletMineMap from '../components/map/LeafletMineMap';
 import '../styles/mine-monitoring.css';
 import '../styles/inspections.css';
 
+function EvidenceItemCard({ file, index, submissionId }) {
+  const [imageError, setImageError] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  const fileStr = String(file || '').trim();
+  const isUrl = fileStr.startsWith('http://') || fileStr.startsWith('https://') || fileStr.startsWith('data:image/');
+
+  if (isUrl && !imageError) {
+    return (
+      <>
+        <div className="evidence-card evidence-card-image">
+          <div
+            className="evidence-image-wrapper"
+            onClick={() => setPreviewOpen(true)}
+            title="Click to view full evidence image"
+          >
+            <img
+              src={fileStr}
+              alt={`Evidence attachment ${index + 1} for ${submissionId}`}
+              className="evidence-image-element"
+              onError={() => setImageError(true)}
+            />
+            <div className="evidence-image-overlay">
+              <ExternalLink size={14} color="#ffffff" />
+              <span>Preview</span>
+            </div>
+          </div>
+          <div className="evidence-filename" title={fileStr}>
+            {fileStr.length > 30 ? fileStr.substring(0, 27) + '...' : fileStr}
+          </div>
+          <div style={{ padding: '0 10px 10px 10px' }}>
+            <span className="evidence-available-badge">Cloudinary Media Verified</span>
+          </div>
+        </div>
+
+        {previewOpen && (
+          <div className="evidence-lightbox-modal" onClick={() => setPreviewOpen(false)}>
+            <div className="evidence-lightbox-content" onClick={e => e.stopPropagation()}>
+              <div className="evidence-lightbox-header">
+                <span>Evidence Attachment #{index + 1} ({submissionId})</span>
+                <button className="evidence-lightbox-close" onClick={() => setPreviewOpen(false)}>✕</button>
+              </div>
+              <img src={fileStr} alt="Full Evidence Attachment" className="evidence-lightbox-img" />
+              <div className="evidence-lightbox-footer">
+                <a href={fileStr} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                  Open Original Image <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className="evidence-card">
+      <div className="evidence-thumbnail">
+        <Camera size={24} color="#94a3b8" />
+        <span style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Evidence File</span>
+      </div>
+      <div className="evidence-filename" title={fileStr}>
+        {fileStr}
+      </div>
+      <div style={{ padding: '0 10px 10px 10px' }}>
+        <span className="evidence-unavailable-fallback">Evidence file unavailable</span>
+      </div>
+    </div>
+  );
+}
+
 export default function InspectionDetailPage({ submissionId, onBack, onSelectMine }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -251,26 +322,29 @@ export default function InspectionDetailPage({ submissionId, onBack, onSelectMin
               <h2>Evidence Attachments</h2>
             </div>
 
-            {Array.isArray(inspection.photos_or_videos) && inspection.photos_or_videos.length > 0 ? (
-              <div className="evidence-grid">
-                {inspection.photos_or_videos.map((file, idx) => (
-                  <div key={idx} className="evidence-card">
-                    <div className="evidence-thumbnail">
-                      <Camera size={24} color="#94a3b8" />
-                      <span style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>Evidence File</span>
-                    </div>
-                    <div className="evidence-filename" title={file}>
-                      {file}
-                    </div>
-                    <div style={{ padding: '0 10px 10px 10px' }}>
-                      <span className="evidence-unavailable-fallback">Evidence file unavailable</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="empty-field-notice">No evidence attached</div>
-            )}
+            {(() => {
+              const rawEvidence = inspection.photos_or_videos || inspection.photos || inspection.evidence_files || inspection.evidence_urls || inspection.evidence || [];
+              const evidenceList = Array.isArray(rawEvidence)
+                ? rawEvidence.filter(item => item !== null && item !== undefined && String(item).trim() !== '')
+                : (typeof rawEvidence === 'string' && rawEvidence.trim() ? [rawEvidence.trim()] : []);
+
+              if (evidenceList.length === 0) {
+                return <div className="empty-field-notice">No evidence attached</div>;
+              }
+
+              return (
+                <div className="evidence-grid">
+                  {evidenceList.map((file, idx) => (
+                    <EvidenceItemCard
+                      key={idx}
+                      file={file}
+                      index={idx}
+                      submissionId={inspection.submission_id}
+                    />
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </div>
 

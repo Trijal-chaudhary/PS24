@@ -78,13 +78,7 @@ export default function Sidebar({ activeTab, onSelectTab, criticalIncidentsCount
     <aside className="sidebar">
       {/* Brand / Logo */}
       <div className="sidebar-header">
-        <div className="sidebar-logo-icon">
-          <span>⚙</span>
-        </div>
-        <div className="sidebar-logo-text">
-          <span className="sidebar-logo-title">NMSCM</span>
-          <span className="sidebar-logo-sub">NATIONAL MINE SAFETY</span>
-        </div>
+        <img src="/logo.png" alt="NMSCM" className="sidebar-logo-img" />
       </div>
 
       {/* Navigation List */}

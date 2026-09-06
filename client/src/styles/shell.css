@@ -23,43 +23,17 @@
   height: var(--header-height);
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   padding: 0 16px;
-  gap: 10px;
   border-bottom: 1px solid var(--border-color);
 }
 
-.sidebar-logo-icon {
-  width: 28px;
-  height: 28px;
-  background-color: var(--brand-blue);
-  color: #ffffff;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 14px;
-}
-
-.sidebar-logo-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-logo-title {
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  line-height: 1.1;
-}
-
-.sidebar-logo-sub {
-  font-size: 8.5px;
-  font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.sidebar-logo-img {
+  max-height: 36px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .sidebar-nav {
