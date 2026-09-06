@@ -1,0 +1,60 @@
+[
+  {
+    "submission_id": "GRV-2024-0041",
+    "mine_id": "JH-DHA-BCCL-007",
+    "inspector_id": "DGMS-INSP-402",
+    "inspector_name": "Rajeshwar Verma",
+    "entry_type": "observation",
+    "category": "safety",
+    "text_content": "Barometric drop detected during night shift changeover. Correlates with repeated pre-dawn methane threshold fluctuations in seam 3.",
+    "photos_or_videos": [
+      "barometric_chart.png"
+    ],
+    "location": {
+      "latitude": 23.7912,
+      "longitude": 86.4319
+    },
+    "date_time": "2024-10-24T05:30:00+05:30",
+    "priority_flagged_by_ai": "yes",
+    "sync_status": "synced",
+    "review_status": "acknowledged"
+  },
+  {
+    "submission_id": "GRV-2024-0038",
+    "mine_id": "CG-KOR-SECL-007",
+    "inspector_id": "DGMS-INSP-215",
+    "inspector_name": "Sunil Verma",
+    "entry_type": "grievance",
+    "category": "labour",
+    "text_content": "Subcontractor workers reporting biometric terminal time sync failures at Pit-head Entry Gate 4.",
+    "photos_or_videos": [],
+    "location": {
+      "latitude": 22.3167,
+      "longitude": 82.5667
+    },
+    "date_time": "2024-10-23T22:15:00+05:30",
+    "priority_flagged_by_ai": "yes",
+    "sync_status": "synced",
+    "review_status": "pending"
+  },
+  {
+    "submission_id": "GRV-2024-0034",
+    "mine_id": "OD-ANG-MCL-004",
+    "inspector_id": "DGMS-INSP-109",
+    "inspector_name": "Suresh Mohapatra",
+    "entry_type": "observation",
+    "category": "environmental",
+    "text_content": "Dust suppression water bowser pipeline pressure drop noticed near siding stockyard.",
+    "photos_or_videos": [
+      "bowser_nozzle.jpg"
+    ],
+    "location": {
+      "latitude": 20.95,
+      "longitude": 85.2167
+    },
+    "date_time": "2024-10-22T11:00:00+05:30",
+    "priority_flagged_by_ai": "no",
+    "sync_status": "synced",
+    "review_status": "resolved"
+  }
+]

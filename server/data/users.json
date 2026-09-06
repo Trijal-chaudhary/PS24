@@ -1,0 +1,24 @@
+[
+  {
+    "user_id": "DGMS-USR-001",
+    "full_name": "Dr. Ravi Shankar Mishra",
+    "designation": "Director General of Mines Safety (DGMS)",
+    "role": "regulator",
+    "employee_id_or_contractor_id": "DGMS-HQ-DIR-01",
+    "mine_assigned": "ALL_MINES",
+    "preferred_language": "en",
+    "email": "dg.mines@dgms.gov.in",
+    "date_time_registered": "2023-01-15T09:00:00+05:30"
+  },
+  {
+    "user_id": "DGMS-USR-402",
+    "full_name": "Rajeshwar Verma",
+    "designation": "Deputy Director of Mines Safety",
+    "role": "inspector",
+    "employee_id_or_contractor_id": "DGMS-INSP-402",
+    "mine_assigned": "JH-DHA-BCCL-007",
+    "preferred_language": "en",
+    "email": "r.verma@dgms.gov.in",
+    "date_time_registered": "2023-06-10T10:30:00+05:30"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "contractor_id": "CONTR-101",
+    "company_name": "Eastern Mining Infra Pvt Ltd",
+    "license_validity": "2025-12-31",
+    "insurance_status": "active",
+    "compliance_documents": [
+      "Form-V_Labour_Permit.pdf",
+      "Worker_Compensation_Policy.pdf"
+    ],
+    "document_expiry_dates": {
+      "DGMS-BL-2021-99": "2024-11-05",
+      "Workmen_Insurance": "2025-06-30"
+    },
+    "equipment_inspection_certificates": [
+      "DumpTruck_Cert_88.pdf",
+      "Excavator_Hydraulic_Cert_12.pdf"
+    ]
+  },
+  {
+    "contractor_id": "CONTR-102",
+    "company_name": "Bharat Earthmovers Logistics",
+    "license_validity": "2026-03-31",
+    "insurance_status": "active",
+    "compliance_documents": [
+      "Contract_Labour_Registration.pdf"
+    ],
+    "document_expiry_dates": {
+      "Blasting_Handling_Licence": "2025-08-15"
+    },
+    "equipment_inspection_certificates": [
+      "FrontLoader_Fitness_2024.pdf"
+    ]
+  },
+  {
+    "contractor_id": "CONTR-103",
+    "company_name": "Deccan Mining Contractors",
+    "license_validity": "2024-11-10",
+    "insurance_status": "renewal_due",
+    "compliance_documents": [
+      "State_PCB_Consent.pdf"
+    ],
+    "document_expiry_dates": {
+      "Explosive_Transport_Permit": "2024-11-08"
+    },
+    "equipment_inspection_certificates": [
+      "Diesel_Bowser_Cert.pdf"
+    ]
+  }
+]
