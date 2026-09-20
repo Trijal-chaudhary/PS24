@@ -6,7 +6,10 @@ export async function getOverview(req, res) {
       state: req.query.state || 'ALL',
       district: req.query.district,
       scope: req.query.scope,
-      severity: req.query.severity
+      severity: req.query.severity,
+      asset: req.query.asset || req.query.mine_id || req.query.mineId,
+      mine_id: req.query.mine_id || req.query.mineId,
+      mineId: req.query.mineId || req.query.mine_id
     };
     const data = await overviewService.getOverviewSummary(filters);
     res.json({
@@ -28,7 +31,12 @@ export async function getOverview(req, res) {
 export async function getIncidents(req, res) {
   try {
     const filter = req.query.filter || 'all';
-    const incidents = await overviewService.getRecentIncidents(filter);
+    let incidents = await overviewService.getRecentIncidents(filter);
+
+    if (req.user && req.user.role === 'mine_operations_manager' && req.user.mine_id && req.user.mine_id !== 'centralized') {
+      incidents = incidents.filter(i => i.mine_id && i.mine_id.toLowerCase() === req.user.mine_id.toLowerCase());
+    }
+
     res.json({
       success: true,
       count: incidents.length,

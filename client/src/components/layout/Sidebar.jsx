@@ -35,9 +35,19 @@ export const NAV_ITEMS = [
   { id: 'admin', label: 'Administration', icon: Settings },
 ];
 
-export default function Sidebar({ activeTab, onSelectTab, criticalIncidentsCount, alertsCount: propsAlertsCount }) {
+export default function Sidebar({ user, activeTab, onSelectTab, criticalIncidentsCount, alertsCount: propsAlertsCount, onLogout }) {
   const [criticalCount, setCriticalCount] = useState(criticalIncidentsCount ?? null);
   const [alertsCount, setAlertsCount] = useState(propsAlertsCount ?? null);
+
+  const isMineManager = user && user.role === 'mine_operations_manager';
+  const profileAvatar = isMineManager
+    ? (user.name ? user.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'MM')
+    : 'RS';
+  const profileName = isMineManager ? (user.name || 'Mine Operations Manager') : 'Dr. Ravi Shankar Mishra';
+  const profileTitle = isMineManager ? 'Mine Operations Manager' : 'Director General of Mines Safety (DGMS)';
+  const profileMinistry = isMineManager
+    ? `Assigned Mine: ${user.mine_id || 'JH-DHA-BCCL-007'}`
+    : 'Ministry of Labour & Employment, Govt of India';
 
   useEffect(() => {
     let isMounted = true;
@@ -76,9 +86,22 @@ export default function Sidebar({ activeTab, onSelectTab, criticalIncidentsCount
 
   return (
     <aside className="sidebar">
-      {/* Brand / Logo */}
+      {/* Brand / Title */}
       <div className="sidebar-header">
-        <img src="/logo.png" alt="NMSCM" className="sidebar-logo-img" />
+        <div className="sidebarBranding">
+          <div className="logoRow">
+            <img
+              className="ministryLogo"
+              src="/coalIndiaLogo.webp"
+              alt="Ministry of Coal"
+            />
+            <img
+              className="solutionLogo"
+              src="/logo.png"
+              alt="Platform Logo"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Navigation List */}
@@ -113,14 +136,14 @@ export default function Sidebar({ activeTab, onSelectTab, criticalIncidentsCount
       </nav>
 
 
-      {/* Director General Profile Footer */}
+      {/* Profile Footer */}
       <div className="sidebar-footer">
         <div className="profile-card">
-          <div className="profile-avatar">RS</div>
+          <div className="profile-avatar">{profileAvatar}</div>
           <div className="profile-info">
-            <span className="profile-name">Dr. Ravi Shankar Mishra</span>
-            <span className="profile-title">Director General of Mines Safety (DGMS)</span>
-            <span className="profile-ministry">Ministry of Labour &amp; Employment, Govt of India</span>
+            <span className="profile-name">{profileName}</span>
+            <span className="profile-title">{profileTitle}</span>
+            <span className="profile-ministry">{profileMinistry}</span>
           </div>
         </div>
 
@@ -130,7 +153,7 @@ export default function Sidebar({ activeTab, onSelectTab, criticalIncidentsCount
           </div>
           <div className="footer-icons">
             <span className="footer-icon-btn" title="Dashboard Settings"><SlidersHorizontal size={13} /></span>
-            <span className="footer-icon-btn" title="Sign Out"><LogOut size={13} /></span>
+            <button className="footer-icon-btn" title="Sign Out" onClick={onLogout} style={{ border: 'none', background: 'none', color: 'inherit', cursor: 'pointer' }}><LogOut size={13} /></button>
           </div>
         </div>
       </div>

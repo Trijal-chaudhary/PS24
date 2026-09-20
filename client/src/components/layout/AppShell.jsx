@@ -5,6 +5,7 @@ import PriorityBanner from './PriorityBanner';
 
 export default function AppShell({
   children,
+  user,
   activeTab,
   onSelectTab,
   syncStatus,
@@ -12,17 +13,19 @@ export default function AppShell({
   isSyncing,
   priorityBannerData,
   onSelectIncident,
-  alertsCount
+  alertsCount,
+  onLogout
 }) {
   return (
     <div className="app-shell">
       {/* Fixed Left Regulatory Sidebar */}
-      <Sidebar activeTab={activeTab} onSelectTab={onSelectTab} alertsCount={alertsCount} />
+      <Sidebar user={user} activeTab={activeTab} onSelectTab={onSelectTab} alertsCount={alertsCount} onLogout={onLogout} />
 
       {/* Main App Container */}
       <div className="main-wrapper">
         {/* Top Header */}
         <TopHeader
+          user={user}
           syncStatus={syncStatus}
           onTriggerSync={onTriggerSync}
           isSyncing={isSyncing}

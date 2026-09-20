@@ -30,6 +30,15 @@ export async function getGrievanceDetailHandler(req, res) {
       });
     }
 
+    if (req.user && req.user.role === 'mine_operations_manager' && req.user.mine_id !== 'centralized') {
+      if (grievance.mine_id !== req.user.mine_id) {
+        return res.status(403).json({
+          success: false,
+          error: { message: "Access denied: Grievance record belongs to another mine." }
+        });
+      }
+    }
+
     res.json({
       success: true,
       data: grievance

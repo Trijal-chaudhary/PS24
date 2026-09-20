@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import MineDashboardPage from './pages/MineDashboardPage';
 import AppShell from './components/layout/AppShell';
 import OverviewPage from './pages/OverviewPage';
 import MineMonitoringPage from './pages/MineMonitoringPage';
@@ -21,7 +24,6 @@ import PlaceholderPage from './components/common/PlaceholderPage';
 import { NAV_ITEMS } from './components/layout/Sidebar';
 import { triggerTelemetrySync } from './services/api';
 
-
 import './styles/global.css';
 import './styles/shell.css';
 import './styles/overview.css';
@@ -37,7 +39,13 @@ function parseCurrentRoute() {
   const hash = window.location.hash.replace(/^#\/?/, '');
   const routeStr = path || hash;
 
-  if (routeStr.startsWith('contractors/')) {
+  if (routeStr === 'login') {
+    return { tab: 'login', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+  } else if (routeStr === 'mine-dashboard') {
+    return { tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+  } else if (routeStr === '' || routeStr === 'home') {
+    return { tab: 'landing', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+  } else if (routeStr.startsWith('contractors/')) {
     const contractorId = routeStr.replace('contractors/', '');
     return { tab: 'contractors', mineId: null, inspectionId: null, incidentId: null, contractorId, grievanceId: null };
   } else if (routeStr === 'contractors') {
@@ -73,7 +81,7 @@ function parseCurrentRoute() {
     return { tab: 'monitoring', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null, initialView: 'map' };
   } else if (routeStr === 'mine-monitoring' || routeStr === 'monitoring') {
     return { tab: 'monitoring', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'overview' || routeStr === '') {
+  } else if (routeStr === 'overview') {
     return { tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
   } else {
     return { tab: routeStr, mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
@@ -81,6 +89,15 @@ function parseCurrentRoute() {
 }
 
 export default function App() {
+  const [authUser, setAuthUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nmscm_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  });
+
   const [routeState, setRouteState] = useState(parseCurrentRoute());
   const [syncStatus, setSyncStatus] = useState(null);
   const [priorityBannerData, setPriorityBannerData] = useState(null);
@@ -99,6 +116,45 @@ export default function App() {
       window.removeEventListener('hashchange', handleRouteChange);
     };
   }, []);
+
+  // Navigation Helpers
+  const navigateToLogin = () => {
+    window.history.pushState(null, '', '/login');
+    setRouteState({ tab: 'login', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null });
+  };
+
+  const navigateToLanding = () => {
+    window.history.pushState(null, '', '/');
+    setRouteState({ tab: 'landing', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null });
+  };
+
+  const handleLoginSuccess = (user) => {
+    try {
+      localStorage.setItem('nmscm_user', JSON.stringify(user));
+    } catch (e) {
+      console.error("Failed to save auth state to localStorage", e);
+    }
+    setAuthUser(user);
+
+    if (user.mine_id === 'centralized') {
+      window.history.pushState(null, '', '/overview');
+      setRouteState({ tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null });
+    } else {
+      window.history.pushState(null, '', '/mine-dashboard');
+      setRouteState({ tab: 'mine-dashboard', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null });
+    }
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('nmscm_user');
+    } catch (e) {
+      console.error("Failed to clear auth state", e);
+    }
+    setAuthUser(null);
+    window.history.pushState(null, '', '/login');
+    setRouteState({ tab: 'login', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null });
+  };
 
   const navigateToMine = (mineId) => {
     const newPath = `/mine/${mineId}`;
@@ -177,11 +233,52 @@ export default function App() {
     }
   };
 
-  const currentNavItem = NAV_ITEMS.find(i => i.id === routeState.tab);
+  // --- ROUTE & AUTHENTICATION GUARD DECISION ---
+
+  // 1. Unauthenticated state handling:
+  if (!authUser) {
+    if (routeState.tab === 'login') {
+      return (
+        <LoginPage
+          onLoginSuccess={handleLoginSuccess}
+          onBackToLanding={navigateToLanding}
+        />
+      );
+    } else if (routeState.tab === 'landing') {
+      return (
+        <LandingPage
+          onNavigateToLogin={navigateToLogin}
+        />
+      );
+    } else {
+      // Unauthenticated access to dashboard routes redirects to /login
+      if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
+        window.history.replaceState(null, '', '/login');
+      }
+      return (
+        <LoginPage
+          onLoginSuccess={handleLoginSuccess}
+          onBackToLanding={navigateToLanding}
+        />
+      );
+    }
+  }
+
+  // 2. Routing Decision based on Authenticated Identity:
+  // If user is logged in, redirect away from landing and login pages
+  if (routeState.tab === 'landing' || routeState.tab === 'login') {
+    const targetRoute = authUser.mine_id === 'centralized' ? '/overview' : '/mine-dashboard';
+    if (typeof window !== 'undefined' && window.location.pathname !== targetRoute) {
+      window.history.replaceState(null, '', targetRoute);
+    }
+  }
+
+  const isMineManager = authUser.mine_id !== 'centralized';
 
   return (
     <AppShell
-      activeTab={routeState.mineId ? 'monitoring' : routeState.tab}
+      user={authUser}
+      activeTab={routeState.mineId ? 'monitoring' : (routeState.tab === 'landing' || routeState.tab === 'login' || routeState.tab === 'mine-dashboard' ? 'overview' : routeState.tab)}
       onSelectTab={handleSelectTab}
       syncStatus={syncStatus}
       onTriggerSync={handleTriggerSync}
@@ -189,6 +286,7 @@ export default function App() {
       priorityBannerData={priorityBannerData}
       onSelectIncident={navigateToIncident}
       alertsCount={alertsCount}
+      onLogout={handleLogout}
     >
       {routeState.contractorId ? (
         <ContractorDetailPage
@@ -222,13 +320,6 @@ export default function App() {
           onSelectIncident={navigateToIncident}
           onSelectContractor={navigateToContractor}
           onSelectGrievance={navigateToGrievance}
-        />
-      ) : routeState.tab === 'overview' ? (
-        <OverviewPage
-          onUpdateSyncStatus={handleUpdateSync}
-          isSyncing={isSyncing}
-          onTriggerSync={handleTriggerSync}
-          onSelectMine={navigateToMine}
         />
       ) : routeState.tab === 'monitoring' || routeState.tab === 'live-map' ? (
         <MineMonitoringPage
@@ -276,13 +367,13 @@ export default function App() {
           onUpdateAlertsCount={setAlertsCount}
         />
       ) : (
-        <PlaceholderPage
-          title={currentNavItem ? currentNavItem.label : 'Module'}
-          onBackToOverview={() => handleSelectTab('overview')}
+        <OverviewPage
+          onUpdateSyncStatus={handleUpdateSync}
+          isSyncing={isSyncing}
+          onTriggerSync={handleTriggerSync}
+          onSelectMine={navigateToMine}
         />
       )}
-
     </AppShell>
   );
 }
-

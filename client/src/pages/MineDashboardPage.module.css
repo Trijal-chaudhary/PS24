@@ -1,0 +1,219 @@
+.pageContainer {
+  background-color: #f8f9ff;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: #0b1c30;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  background-color: #0f1e36;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(15, 30, 54, 0.1);
+}
+
+.headerInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brandBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ministryLogo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.solutionLogo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 10px;
+  color: #b9c7e0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userText {
+  text-align: right;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.userRole {
+  font-size: 11px;
+  color: #b9c7e0;
+}
+
+.logoutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(220, 38, 38, 0.2);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(220, 38, 38, 0.35);
+}
+
+.main {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2.5rem;
+  border: 1px solid #dce9ff;
+  box-shadow: 0 4px 16px rgba(15, 30, 54, 0.06);
+  text-align: center;
+}
+
+.iconBox {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #d5e3fd;
+  color: #0f1e36;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.cardTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0b1c30;
+  margin-bottom: 0.5rem;
+}
+
+.mineBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(15, 30, 54, 0.08);
+  color: #0f1e36;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.cardDesc {
+  font-size: 16px;
+  color: #44474d;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.detailsBlock {
+  padding: 1.25rem;
+  border-radius: 8px;
+  background-color: #eff4ff;
+  text-align: left;
+  border: 1px solid rgba(197, 198, 206, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detailsTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #515f74;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.detailRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.detailLabel {
+  color: #44474d;
+}
+
+.detailVal {
+  font-weight: 600;
+  color: #0b1c30;
+}
+
+.statusVal {
+  color: #047857;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.greenDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #059669;
+}
+
+.footer {
+  width: 100%;
+  background-color: #eff4ff;
+  border-top: 1px solid rgba(197, 198, 206, 0.3);
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 11px;
+  color: #515f74;
+}

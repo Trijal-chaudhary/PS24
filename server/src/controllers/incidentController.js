@@ -30,6 +30,15 @@ export async function getIncidentDetailHandler(req, res) {
       });
     }
 
+    if (req.user && req.user.role === 'mine_operations_manager' && req.user.mine_id !== 'centralized') {
+      if (incident.mine_id !== req.user.mine_id) {
+        return res.status(403).json({
+          success: false,
+          error: { message: "Access denied: Incident record belongs to another mine." }
+        });
+      }
+    }
+
     res.json({
       success: true,
       data: incident

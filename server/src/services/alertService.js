@@ -13,9 +13,14 @@ export async function getAlerts(filters = {}) {
 
   // 1. Filter ONLY incidents where severity === "critical" (case-insensitive)
   // Excludes "fatal" and all non-incident alert types.
-  const criticalIncidents = incidents.filter(inc =>
+  const targetMineId = filters.mine_id || filters.mineId;
+  let criticalIncidents = incidents.filter(inc =>
     inc && inc.severity && String(inc.severity).toLowerCase() === 'critical'
   );
+
+  if (targetMineId && targetMineId !== 'ALL') {
+    criticalIncidents = criticalIncidents.filter(inc => inc.mine_id && inc.mine_id.toLowerCase() === targetMineId.toLowerCase());
+  }
 
   // 2. Sort descending chronologically by date_time (newest incident first)
   criticalIncidents.sort((a, b) => {

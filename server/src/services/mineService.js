@@ -42,6 +42,10 @@ export async function getFilteredMines(query = {}) {
   // Apply search and field filters to mines FIRST
   let filtered = allMines;
 
+  if (query.mine_id && query.mine_id !== 'ALL') {
+    filtered = filtered.filter(m => String(m.mine_id).toLowerCase() === query.mine_id.toLowerCase());
+  }
+
   if (query.state && query.state !== 'ALL') {
     filtered = filtered.filter(m => String(m.state).toLowerCase() === query.state.toLowerCase());
   }

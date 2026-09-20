@@ -30,6 +30,15 @@ export async function getInspectionDetailHandler(req, res) {
       });
     }
 
+    if (req.user && req.user.role === 'mine_operations_manager' && req.user.mine_id !== 'centralized') {
+      if (inspection.mine_id !== req.user.mine_id) {
+        return res.status(403).json({
+          success: false,
+          error: { message: "Access denied: Inspection belongs to another mine." }
+        });
+      }
+    }
+
     res.json({
       success: true,
       data: inspection

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Search, RefreshCw, Bell, AlertTriangle } from 'lucide-react';
 
-export default function TopHeader({ syncStatus, onTriggerSync, isSyncing }) {
+export default function TopHeader({ user, syncStatus, onTriggerSync, isSyncing }) {
   const [currentTime, setCurrentTime] = useState('');
+
+  const isMineManager = user && user.role === 'mine_operations_manager';
+  const subtitleText = isMineManager
+    ? `MINE-SPECIFIC MONITORING | ${user.mine_id}`
+    : 'MINING INTELLIGENCE & OPERATIONAL VISIBILITY ANALYTICS | DGMS';
 
   useEffect(() => {
     function updateLiveIST() {
@@ -30,8 +35,10 @@ export default function TopHeader({ syncStatus, onTriggerSync, isSyncing }) {
   return (
     <header className="top-header">
       <div className="header-left">
-        <h2 className="header-system-title">National Mine Safety &amp; Compliance Monitoring</h2>
-        <span className="header-system-sub">Central Regulatory Authority Command Center | DGMS</span>
+        <div className="platformBranding">
+          <h2 className="platformTitle">Mining Intelligence and Operational Visibilty Analytics</h2>
+          <span className="platformSubtitle">{subtitleText}</span>
+        </div>
       </div>
 
       <div className="header-center">

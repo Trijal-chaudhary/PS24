@@ -22,6 +22,8 @@ export async function getOverviewSummary(filters = {}) {
     if (m.mine_id) mineMap.set(m.mine_id, m);
   }
 
+  const targetAsset = filters.asset || filters.mine_id || filters.mineId;
+
   // 1. Filter Mines by state, district, asset
   let filteredMines = mines;
   if (filters.state && filters.state !== 'ALL') {
@@ -30,8 +32,8 @@ export async function getOverviewSummary(filters = {}) {
   if (filters.district && filters.district !== 'ALL') {
     filteredMines = filteredMines.filter(m => m.district && m.district.toLowerCase().includes(filters.district.toLowerCase()));
   }
-  if (filters.asset && filters.asset !== 'ALL') {
-    filteredMines = filteredMines.filter(m => m.mine_id === filters.asset);
+  if (targetAsset && targetAsset !== 'ALL') {
+    filteredMines = filteredMines.filter(m => m.mine_id && m.mine_id.toLowerCase() === targetAsset.toLowerCase());
   }
 
   // 2. Enrich & Filter Inspections (Phase 6C Hybrid Local JSON + Firestore Mobile data)
@@ -51,8 +53,8 @@ export async function getOverviewSummary(filters = {}) {
   if (filters.district && filters.district !== 'ALL') {
     filteredInspections = filteredInspections.filter(i => i.district && i.district.toLowerCase().includes(filters.district.toLowerCase()));
   }
-  if (filters.asset && filters.asset !== 'ALL') {
-    filteredInspections = filteredInspections.filter(i => i.mine_id === filters.asset);
+  if (targetAsset && targetAsset !== 'ALL') {
+    filteredInspections = filteredInspections.filter(i => i.mine_id && i.mine_id.toLowerCase() === targetAsset.toLowerCase());
   }
   if (filters.scope && filters.scope !== 'ALL') {
     filteredInspections = filteredInspections.filter(i => i.inspection_type && i.inspection_type.toLowerCase() === filters.scope.toLowerCase());
@@ -81,8 +83,8 @@ export async function getOverviewSummary(filters = {}) {
   if (filters.district && filters.district !== 'ALL') {
     filteredIncidents = filteredIncidents.filter(i => i.district && i.district.toLowerCase().includes(filters.district.toLowerCase()));
   }
-  if (filters.asset && filters.asset !== 'ALL') {
-    filteredIncidents = filteredIncidents.filter(i => i.mine_id === filters.asset);
+  if (targetAsset && targetAsset !== 'ALL') {
+    filteredIncidents = filteredIncidents.filter(i => i.mine_id && i.mine_id.toLowerCase() === targetAsset.toLowerCase());
   }
 
   // 4. Enrich & Filter Attendance (Phase 6C Hybrid Local JSON + Firestore Mobile data)
@@ -102,8 +104,8 @@ export async function getOverviewSummary(filters = {}) {
   if (filters.district && filters.district !== 'ALL') {
     filteredAttendance = filteredAttendance.filter(a => a.district && a.district.toLowerCase().includes(filters.district.toLowerCase()));
   }
-  if (filters.asset && filters.asset !== 'ALL') {
-    filteredAttendance = filteredAttendance.filter(a => a.mine_id === filters.asset);
+  if (targetAsset && targetAsset !== 'ALL') {
+    filteredAttendance = filteredAttendance.filter(a => a.mine_id && a.mine_id.toLowerCase() === targetAsset.toLowerCase());
   }
 
   // --- Overview Telemetry Aggregations ---

@@ -138,6 +138,10 @@ export async function getFilteredContractors(query = {}) {
   // Apply filters
   let filtered = enriched;
 
+  if (query.mine_id && query.mine_id !== 'ALL') {
+    filtered = filtered.filter(c => c.associated_mines.some(m => m.mine_id && m.mine_id.toLowerCase() === query.mine_id.toLowerCase()));
+  }
+
   if (query.contractor_id && query.contractor_id !== 'ALL') {
     filtered = filtered.filter(c => c.contractor_id && c.contractor_id.toLowerCase() === query.contractor_id.toLowerCase());
   }

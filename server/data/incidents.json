@@ -17,10 +17,7 @@
     "immediate_action_taken": "Shaft 3 isolated. Auxiliary fans switched to 100% booster CFM. 4 miners evacuated; 1 shifted to Central Hospital Dhanbad for oxygen therapy.",
     "medical_attention_required": "yes",
     "equipment_involved": "Auxiliary Exhaust Fan #AF-3, Draeger Multi-Gas Monitor",
-    "photos_or_videos": [
-      "methane_readout_0821.jpg",
-      "shaft3_barricade.jpg"
-    ],
+    "photos_or_videos": ["methane_readout_0821.jpg", "shaft3_barricade.jpg"],
     "location": {
       "latitude": 23.7912,
       "longitude": 86.4319
@@ -39,17 +36,14 @@
     "inspector_id": "DGMS-INSP-210",
     "inspector_name": "Manoj Rathore",
     "incident_type": "equipment_failure",
-    "severity": "critical",
+    "severity": "minor",
     "people_affected": 5,
     "affected_person_details": [],
     "description": "Dumper Hydraulic Brake Line Rupture. 100T CAT 777D heavy hauler suffered primary pressurized brake line rupture while descending Ramp #12 incline.",
     "immediate_action_taken": "Operator activated emergency dynamic retarder and berm-steered safely into catch ramp. Machine impounded for structural forensic audit.",
     "medical_attention_required": "no",
     "equipment_involved": "CAT 777D Heavy Hauler (Unit #HAUL-44)",
-    "photos_or_videos": [
-      "brake_hydraulic_burst.jpg",
-      "ramp12_catch_berm.jpg"
-    ],
+    "photos_or_videos": ["brake_hydraulic_burst.jpg", "ramp12_catch_berm.jpg"],
     "location": {
       "latitude": 22.359,
       "longitude": 82.6041
@@ -70,16 +64,12 @@
     "incident_type": "injury",
     "severity": "minor",
     "people_affected": 1,
-    "affected_person_details": [
-      "V. Ramulu (Emp #TG-8841)"
-    ],
+    "affected_person_details": ["V. Ramulu (Emp #TG-8841)"],
     "description": "Minor Ankle Sprain During Shaft Descent. Worker stumbled on wet metal grating inside man-winding cage platform.",
     "immediate_action_taken": "Shift first-aid team applied cold pack and crepe bandage. Worker assessed by on-site medical officer and cleared with light duties.",
     "medical_attention_required": "yes",
     "equipment_involved": "Man-winding Cage Platform B",
-    "photos_or_videos": [
-      "first_aid_log_8841.pdf"
-    ],
+    "photos_or_videos": ["first_aid_log_8841.pdf"],
     "location": {
       "latitude": 18.7617,
       "longitude": 79.475
@@ -98,19 +88,14 @@
     "inspector_id": "DGMS-INSP-318",
     "inspector_name": "Amrita Roy",
     "incident_type": "injury",
-    "severity": "critical",
+    "severity": "minor",
     "people_affected": 2,
-    "affected_person_details": [
-      "A. K. Banerjee",
-      "S. Murmu"
-    ],
+    "affected_person_details": ["A. K. Banerjee", "S. Murmu"],
     "description": "Roof fall at Seam 4 junction during depillaring operations. High risk strata pressure displacement.",
     "immediate_action_taken": "Strata management emergency protocol deployed. Hydraulic roof supports doubled.",
     "medical_attention_required": "yes",
     "equipment_involved": "Hydraulic Roof Support Stand #H-12",
-    "photos_or_videos": [
-      "roof_fall_seam4.jpg"
-    ],
+    "photos_or_videos": ["roof_fall_seam4.jpg"],
     "location": {
       "latitude": 23.6833,
       "longitude": 87.05
@@ -136,9 +121,7 @@
     "immediate_action_taken": "Automatic CO2 flooding initiated. Breaker isolated within 40ms. Zero human injury.",
     "medical_attention_required": "no",
     "equipment_involved": "11kV Primary Feeder Breaker Panel #F-02",
-    "photos_or_videos": [
-      "panel_flash_scorch.jpg"
-    ],
+    "photos_or_videos": ["panel_flash_scorch.jpg"],
     "location": {
       "latitude": 20.95,
       "longitude": 85.2167
@@ -159,16 +142,12 @@
     "incident_type": "injury",
     "severity": "fatal",
     "people_affected": 1,
-    "affected_person_details": [
-      "B. Soren (Haulage Attendant)"
-    ],
+    "affected_person_details": ["B. Soren (Haulage Attendant)"],
     "description": "Fatal haulage rope derailment during empty tub marshalling at incline bottom.",
     "immediate_action_taken": "Court of inquiry constituted by DGMS. Incline haulage operations suspended.",
     "medical_attention_required": "yes",
     "equipment_involved": "Endless Haulage Drum #EH-04",
-    "photos_or_videos": [
-      "haulage_drum_snap.jpg"
-    ],
+    "photos_or_videos": ["haulage_drum_snap.jpg"],
     "location": {
       "latitude": 23.78,
       "longitude": 86.42
@@ -189,16 +168,12 @@
     "incident_type": "injury",
     "severity": "fatal",
     "people_affected": 1,
-    "affected_person_details": [
-      "R. K. Yadav (Drill Operator)"
-    ],
+    "affected_person_details": ["R. K. Yadav (Drill Operator)"],
     "description": "Highwall bench slide onto drill machine platform during blast hole charging.",
     "immediate_action_taken": "Bench face scaled down and stabilized. DGMS inquiry commission dispatched.",
     "medical_attention_required": "yes",
     "equipment_involved": "Blast Hole Drill #RD-18",
-    "photos_or_videos": [
-      "bench_slide_drill.jpg"
-    ],
+    "photos_or_videos": ["bench_slide_drill.jpg"],
     "location": {
       "latitude": 24.1167,
       "longitude": 82.6833
