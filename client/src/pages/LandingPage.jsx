@@ -6,8 +6,17 @@ export default function LandingPage({ onNavigateToLogin }) {
 
   const handleLoginClick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (onNavigateToLogin) {
       onNavigateToLogin();
+    }
+  };
+
+  const handleNavClick = (e, targetId) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -50,40 +59,33 @@ export default function LandingPage({ onNavigateToLogin }) {
           </div>
           <div className={styles.headerActions}>
             <nav className={`${styles.navMenu} ${isMobileMenuOpen ? styles.navMenuOpen : ''}`}>
-              <a
-                className={`${styles.navLink} ${styles.navLinkActive}`}
-                href="#"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <a 
+                className={`${styles.navLink} ${styles.navLinkActive}`} 
+                href="#home"
+                onClick={(e) => handleNavClick(e, 'home')}
               >
                 Home
               </a>
-              <a
-                className={styles.navLink}
-                href="#platform-overview"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <a 
+                className={styles.navLink} 
+                href="#about"
+                onClick={(e) => handleNavClick(e, 'about')}
               >
                 About
               </a>
-              <a
-                className={styles.navLink}
-                href="#platform-overview"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <a 
+                className={styles.navLink} 
+                href="#features"
+                onClick={(e) => handleNavClick(e, 'features')}
               >
                 Features
               </a>
-              <a
-                className={styles.navLink}
-                href="#platform-overview"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <a 
+                className={styles.navLink} 
+                href="#safety-compliance"
+                onClick={(e) => handleNavClick(e, 'safety-compliance')}
               >
                 Safety &amp; Compliance
-              </a>
-              <a
-                className={styles.navLink}
-                href="#footer"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
               </a>
             </nav>
             <div className={styles.headerBtnGroup}>
@@ -94,7 +96,7 @@ export default function LandingPage({ onNavigateToLogin }) {
               <div className={styles.userAvatar}>
                 <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>person</span>
               </div>
-              <button
+              <button 
                 className={styles.mobileMenuToggle}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle navigation menu"
@@ -111,7 +113,7 @@ export default function LandingPage({ onNavigateToLogin }) {
       {/* MAIN CONTENT */}
       <main className={styles.mainContent}>
         {/* SECTION 1: HERO SECTION */}
-        <section className={styles.heroSection}>
+        <section className={styles.heroSection} id="home">
           <div className={styles.heroBg}>
             <img
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVn75kxxUXyOv5XaLl89BQsImbkjMU62lxR9Hg9nUsDWCKB5INWoMmRfNUW9XgdZMJHut-s2bRJEqxSX-4ikU6SHxZqIQ4mM2Vqyt0i4mcubEJ6hQV3npLYISUljq7qFafvguB6ChcqAyEKDJ5Ee6xreDMIsfUmSzM2xIlT_88l0ubiI8-6DckYIduOVi2pW5LmdVG8MaabZH7ECH7A-7eJiAYDniEFqqjTibrDsWAba8Gei8QN5hSkg"
@@ -137,7 +139,7 @@ export default function LandingPage({ onNavigateToLogin }) {
                   <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>lock</span>
                   <span>Authority Login</span>
                 </button>
-                <a className={styles.heroSecondaryBtn} href="#platform-overview">
+                <a className={styles.heroSecondaryBtn} href="#about">
                   <span>Explore Platform</span>
                   <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>expand_more</span>
                 </a>
@@ -149,7 +151,7 @@ export default function LandingPage({ onNavigateToLogin }) {
                 </span>
                 <span>•</span>
                 <span className={styles.heroMetaItem}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '15px', color: '#0f1e36' }}>check_circle</span>
+                  <span className="material-symbols-outlined" style={{ fontSize: '15px', color: '#1d4ed8' }}>check_circle</span>
                   <span>Mine-level monitoring</span>
                 </span>
                 <span>•</span>
@@ -162,236 +164,232 @@ export default function LandingPage({ onNavigateToLogin }) {
           </div>
         </section>
 
-        {/* SECTION 2: PLATFORM OVERVIEW */}
-        <section className={styles.sectionWhite} id="platform-overview">
+        {/* SECTION 2: ABOUT SECTION */}
+        <section className={styles.sectionWhite} id="about">
           <div className={styles.sectionContainer}>
             <div className={styles.sectionHeader}>
               <div className={styles.sectionTag}>
-                Modular Governance Infrastructure
+                GOVERNANCE &amp; OPERATIONAL TRANSPARENCY
               </div>
               <h2 className={styles.sectionTitle}>
-                Unified Mine Safety &amp; Compliance Monitoring
+                About the Platform
               </h2>
               <p className={styles.sectionDesc}>
-                Bring field-level inspections, incidents, workforce information, compliance records, grievances, and operational evidence together in one secure monitoring platform.
+                Mining Intelligence and Operational Visibility Analytics (MINOVA) is designed to bring mining safety, statutory compliance, inspections, incidents, workforce information, and operational reporting into a unified digital platform.
               </p>
             </div>
-            <div className={styles.grid3}>
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>radar</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Mine Monitoring</h3>
-                  <p className={styles.cardDesc}>
-                    Track mine status, location, operational conditions, and risk indicators.
-                  </p>
+
+            <div className={styles.aboutIntroCard}>
+              <p className={styles.aboutIntroText}>
+                The platform helps address fragmented reporting and limited visibility by organizing information from field-level activities into structured, role-governed web dashboards and mobile applications.
+              </p>
+              <p className={styles.aboutIntroText}>
+                It supports coordination between field inspectors, mine employees, mine operations managers, mining companies, and centralized regulatory authorities through a common monitoring and reporting infrastructure.
+              </p>
+            </div>
+
+            <div className={styles.aboutSubgrid}>
+              <div className={styles.aboutSubcard}>
+                <div className={styles.iconBox}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>warning_amber</span>
                 </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>location_on</span>
-                  <span>Geospatial perimeter &amp; depth telemetry</span>
-                </div>
+                <h3 className={styles.cardTitle}>Consolidated Visibility &amp; Data Integration</h3>
+                <p className={styles.cardDesc}>
+                  By bringing together inspection records, incident reporting, workforce attendance, production reporting, grievances, and environmental indicators, MINOVA connects field-level operations with higher-level regulatory and corporate oversight.
+                </p>
               </div>
 
+              <div className={styles.aboutSubcard}>
+                <div className={styles.iconBox}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>insights</span>
+                </div>
+                <h3 className={styles.cardTitle}>Structured Data &amp; AI Risk Intelligence</h3>
+                <p className={styles.cardDesc}>
+                  MINOVA combines structured operational data with AI-assisted analysis to help users understand mine risks, recurring violations, and notable patterns, supporting a connected web-and-mobile workflow for field reporting, review, follow-up, and coordination.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.userGroupsHeader}>
+              <h3 className={styles.userGroupsTitle}>Stakeholders Connected by MINOVA</h3>
+              <p className={styles.sectionDesc}>Five distinct user groups connected through role-governed workflows and dedicated interfaces:</p>
+            </div>
+
+            <div className={styles.userGroupGrid}>
+              <div className={styles.userGroupCard}>
+                <div className={styles.userGroupIcon}>
+                  <span className="material-symbols-outlined">assignment_ind</span>
+                </div>
+                <span className={styles.userGroupBadge}>Mobile App</span>
+                <h4 className={styles.userGroupRole}>Field Inspectors</h4>
+                <p className={styles.userGroupDesc}>
+                  Submit digital inspection reports containing checklist responses, findings, remarks, location coordinates, timestamps, and supporting evidence directly from mine sites.
+                </p>
+              </div>
+
+              <div className={styles.userGroupCard}>
+                <div className={styles.userGroupIcon}>
+                  <span className="material-symbols-outlined">engineering</span>
+                </div>
+                <span className={styles.userGroupBadge}>Mobile App</span>
+                <h4 className={styles.userGroupRole}>Mine Employees</h4>
+                <p className={styles.userGroupDesc}>
+                  Report safety incidents and observations in real time, submit operational grievances, and receive assigned response tasks and status updates.
+                </p>
+              </div>
+
+              <div className={styles.userGroupCard}>
+                <div className={styles.userGroupIcon}>
+                  <span className="material-symbols-outlined">badge</span>
+                </div>
+                <span className={styles.userGroupBadge}>Mine Dashboard</span>
+                <h4 className={styles.userGroupRole}>Mine Operations Managers</h4>
+                <p className={styles.userGroupDesc}>
+                  Review incidents, assign response specialists and equipment, track worker shift attendance, manage production reports, and handle worker grievances.
+                </p>
+              </div>
+
+              <div className={styles.userGroupCard}>
+                <div className={styles.userGroupIcon}>
+                  <span className="material-symbols-outlined">domain</span>
+                </div>
+                <span className={styles.userGroupBadge}>Company Dashboard</span>
+                <h4 className={styles.userGroupRole}>Mining Companies</h4>
+                <p className={styles.userGroupDesc}>
+                  Access aggregated operational visibility across company-managed mines, review production reports, and monitor company-wide safety and compliance metrics.
+                </p>
+              </div>
+
+              <div className={styles.userGroupCard}>
+                <div className={styles.userGroupIcon}>
+                  <span className="material-symbols-outlined">account_balance</span>
+                </div>
+                <span className={styles.userGroupBadge}>Authority Dashboard</span>
+                <h4 className={styles.userGroupRole}>Centralized Authorities</h4>
+                <p className={styles.userGroupDesc}>
+                  Maintain national regulatory oversight, review inspection findings, monitor statutory compliance deadlines, and track incidents across all monitored mines.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3: FEATURES SECTION (A through P) */}
+        <section className={styles.sectionSoft} id="features">
+          <div className={styles.sectionContainer}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionTag}>
+                CORE SYSTEM CAPABILITIES
+              </div>
+              <h2 className={styles.sectionTitle}>
+                Platform Features
+              </h2>
+              <p className={styles.sectionDesc}>
+                Comprehensive capabilities engineered to digitize field records, streamline regulatory oversight, and facilitate operational coordination across mining environments.
+              </p>
+            </div>
+
+            <div className={styles.grid4}>
+              {/* Feature 1 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
                     <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>fact_check</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Inspections &amp; Compliance</h3>
+                  <h3 className={styles.cardTitle}>Digital Inspections &amp; Compliance Management</h3>
                   <p className={styles.cardDesc}>
-                    Monitor inspections, violations, corrective actions, and compliance status.
+                    Digitize field inspections, capture observations and evidence, track violations, and manage corrective actions through resolution and verification. Support organized monitoring of mine safety and statutory compliance.
                   </p>
-                </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>policy</span>
-                  <span>Statutory Mines Act compliance checks</span>
                 </div>
               </div>
 
+              {/* Feature 2 */}
+              <div className={styles.featureCard}>
+                <div>
+                  <div className={styles.iconBox}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>psychology</span>
+                  </div>
+                  <h3 className={styles.cardTitle}>AI-Powered Mine Risk Intelligence</h3>
+                  <p className={styles.cardDesc}>
+                    Use AI-assisted analysis of available mine data to explain risk factors, identify recurring violations, highlight notable patterns, and provide analytical insights that support informed decision-making.
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className={styles.featureCard}>
+                <div>
+                  <div className={styles.iconBox}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>map</span>
+                  </div>
+                  <h3 className={styles.cardTitle}>GIS-Based Mine Monitoring</h3>
+                  <p className={styles.cardDesc}>
+                    Explore mine locations through map-based monitoring and geographic views. Help users understand the spatial context of available mine information and location-based records.
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 4 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
                     <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>emergency</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Incident Management</h3>
+                  <h3 className={styles.cardTitle}>Incident &amp; Emergency Response Coordination</h3>
                   <p className={styles.cardDesc}>
-                    Record and review safety incidents, affected personnel, severity, and response actions.
+                    Organize incident reports, severity, evidence, and follow-up activities. Support mine managers in coordinating suitable personnel and equipment, assigning response tasks, and tracking relevant updates.
                   </p>
-                </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>medical_services</span>
-                  <span>Rapid triage &amp; statutory flash reporting</span>
                 </div>
               </div>
 
+              {/* Feature 5 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>engineering</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>badge</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Workforce Monitoring</h3>
+                  <h3 className={styles.cardTitle}>Workforce, Attendance &amp; Grievance Management</h3>
                   <p className={styles.cardDesc}>
-                    Review workforce attendance and mine-level workforce activity.
+                    Provide visibility into workforce and attendance records while supporting grievance submission, review, and follow-up. Help mine managers coordinate workforce-related activities within their authorized scope.
                   </p>
-                </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>badge</span>
-                  <span>Biometric muster &amp; safety certified roster</span>
                 </div>
               </div>
 
+              {/* Feature 6 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>folder_special</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>precision_manufacturing</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Evidence Management</h3>
+                  <h3 className={styles.cardTitle}>Production &amp; Operational Reporting</h3>
                   <p className={styles.cardDesc}>
-                    Access inspection and incident evidence associated with field submissions.
-                  </p>
-                </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>verified</span>
-                  <span>Cryptographic timestamping &amp; chain of custody</span>
-                </div>
-              </div>
-
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>insights</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>AI-Assisted Risk Intelligence</h3>
-                  <p className={styles.cardDesc}>
-                    Analyze mine-specific inspection and incident information to identify important risk factors and patterns.
-                  </p>
-                </div>
-                <div className={styles.cardFooter}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '16px', marginRight: '4px' }}>timeline</span>
-                  <span>Predictive geological &amp; structural alerts</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: BUILT FOR BETTER SAFETY OVERSIGHT */}
-        <section className={styles.sectionSoft}>
-          <div className={styles.sectionContainer}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTag}>
-                INSTITUTIONAL IMPACT
-              </div>
-              <h2 className={styles.sectionTitle}>
-                Built for Better Safety Oversight
-              </h2>
-              <p className={styles.sectionDesc}>
-                Purpose-engineered to reduce occupational hazards and establish absolute transparency across statutory mining operations.
-              </p>
-            </div>
-
-            <div className={styles.grid4}>
-              {/* Card 1 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>desktop_windows</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Centralized Monitoring</h3>
-                  <p className={styles.cardDesc}>
-                    Single-pane-of-glass visibility across mines, enabling centralized oversight and clear accountability at both regulatory and mine levels.
+                    Support the management and submission of mine production reports, providing relevant operational information to authorized mine, company, and centralized authority dashboards.
                   </p>
                 </div>
               </div>
 
-              {/* Card 2 */}
+              {/* Feature 7 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>speed</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Faster Visibility</h3>
-                  <p className={styles.cardDesc}>
-                    Immediate telemetry and real-time alerts ensure swift response times to emerging hazards.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>document_scanner</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Evidence-Based Oversight</h3>
-                  <p className={styles.cardDesc}>
-                    Tamper-evident digital trails, geo-tagged photos, and verified inspection signatures.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 4 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>badge</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Worker Attendance Tracking</h3>
-                  <p className={styles.cardDesc}>
-                    Monitor workforce attendance, shift-wise headcount, and worker presence across mining operations.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 5 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>support_agent</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Grievance Handling</h3>
-                  <p className={styles.cardDesc}>
-                    Capture worker grievances and observations, track their status, and support timely redressal.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 6 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>precision_manufacturing</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>Production Reporting</h3>
-                  <p className={styles.cardDesc}>
-                    Monitor mine production reporting and operational output to maintain a consolidated view of mine activity.
-                  </p>
-                </div>
-              </div>
-
-              {/* Card 7 */}
-              <div className={styles.featureCard}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>eco</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>eco</span>
                   </div>
                   <h3 className={styles.cardTitle}>Environmental Monitoring</h3>
                   <p className={styles.cardDesc}>
-                    Track environmental indicators including pollution, water usage, and land reclamation metrics alongside mine operations.
+                    Organize available environmental information relating to pollution, water, and land reclamation to support environmental oversight and operational awareness.
                   </p>
                 </div>
               </div>
 
-              {/* Card 8 */}
+              {/* Feature 8 */}
               <div className={styles.featureCard}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>warning</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>phonelink</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Emergency Situations</h3>
+                  <h3 className={styles.cardTitle}>Unified Web &amp; Mobile Oversight</h3>
                   <p className={styles.cardDesc}>
-                    Support rapid visibility and coordinated response during critical incidents, emergencies, and mine safety situations.
+                    Connect field-level reporting with role-based web dashboards for mine managers, mining companies, and centralized regulatory authorities. Support structured information sharing, review, and oversight across the mining operation.
                   </p>
                 </div>
               </div>
@@ -399,70 +397,172 @@ export default function LandingPage({ onNavigateToLogin }) {
           </div>
         </section>
 
-        {/* SECTION 4: SECURE ACCESS FOR AUTHORIZED AUTHORITIES */}
-        <section className={styles.sectionLight}>
+        {/* SECTION 4: SAFETY & COMPLIANCE SECTION */}
+        <section className={styles.sectionLight} id="safety-compliance">
           <div className={styles.sectionContainer}>
             <div className={styles.sectionHeader}>
               <div className={styles.sectionTag}>
-                INSTITUTIONAL SECURITY &amp; COMPLIANCE
+                STATUTORY OVERSIGHT &amp; WORKFLOWS
               </div>
               <h2 className={styles.sectionTitle}>
-                Secure Access for Authorized Authorities
+                Safety, Compliance &amp; Operational Accountability
               </h2>
               <p className={styles.sectionDesc}>
-                Role-based access ensures that users see the information and monitoring tools relevant to their responsibilities.
+                Understanding how information flows seamlessly between field officers, mine managers, corporate entities, and central authorities.
               </p>
             </div>
 
-            <div className={styles.grid4}>
-              {/* Card 1 */}
+            {/* Inspection Workflow Sequence */}
+            <div className={styles.workflowBlock}>
+              <div className={styles.workflowBlockHeader}>
+                <span className="material-symbols-outlined" style={{ color: '#1d4ed8', fontSize: '24px' }}>fact_check</span>
+                <h3>Inspection Reporting &amp; Review Workflow</h3>
+              </div>
+              <p className={styles.workflowBlockDesc}>
+                Inspectors record digital inspections, checklist responses, findings, remarks, timestamps, location coordinates, and supporting evidence. Submissions follow a clear statutory routing flow:
+              </p>
+              
+              <div className={styles.sequenceFlow}>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 01</span>
+                  <h4>Inspector Mobile App</h4>
+                  <p>Inspector logs field observations, checklists, evidence photos, and geo-location.</p>
+                </div>
+                <div className={styles.sequenceArrow}>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 02</span>
+                  <h4>Centralized Authority</h4>
+                  <p>Submitted to the centralized authority first for statutory review and processing.</p>
+                </div>
+                <div className={styles.sequenceArrow}>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 03</span>
+                  <h4>Company &amp; Mine Dashboards</h4>
+                  <p>Processed inspection results made available to relevant company and mine dashboards.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Incident Workflow Sequence */}
+            <div className={styles.workflowBlock}>
+              <div className={styles.workflowBlockHeader}>
+                <span className="material-symbols-outlined" style={{ color: '#1d4ed8', fontSize: '24px' }}>medical_services</span>
+                <h3>Incident Reporting &amp; Response Coordination Workflow</h3>
+              </div>
+              <p className={styles.workflowBlockDesc}>
+                Incidents reported via mobile apps are immediately routed to the mine manager and centralized authority for coordinated response and task updates:
+              </p>
+
+              <div className={styles.sequenceFlow}>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 01</span>
+                  <h4>Mobile App Reporting</h4>
+                  <p>Inspector or employee reports incident with severity level and site evidence.</p>
+                </div>
+                <div className={styles.sequenceArrow}>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 02</span>
+                  <h4>Manager &amp; Authority Review</h4>
+                  <p>Incident routed simultaneously to relevant mine manager and central authority.</p>
+                </div>
+                <div className={styles.sequenceArrow}>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 03</span>
+                  <h4>Resource Dispatch</h4>
+                  <p>Mine manager coordinates response by assigning suitable specialists and equipment.</p>
+                </div>
+                <div className={styles.sequenceArrow}>
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
+                <div className={styles.sequenceStep}>
+                  <span className={styles.sequenceNum}>STEP 04</span>
+                  <h4>Employee App Update</h4>
+                  <p>Assigned response tasks and status updates reflected in the employee app.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Grievance, Attendance & Production, Environmental Cards */}
+            <div className={styles.grid3} style={{ marginTop: '2rem' }}>
               <div className={styles.featureCard} style={{ backgroundColor: '#ffffff' }}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>manage_accounts</span>
+                    <span className="material-symbols-outlined">forum</span>
                   </div>
-                  <h3 className={styles.cardTitle}>RBAC Architecture</h3>
+                  <h3 className={styles.cardTitle}>Grievance Redressal Workflow</h3>
                   <p className={styles.cardDesc}>
-                    Single-pane-of-glass visibility across mines, enabling centralized oversight and clear accountability at both regulatory and mine levels.
+                    Grievances submitted by inspectors or employees through mobile apps are made visible across relevant mine, company, and centralized authority web interfaces for review, follow-up, and status tracking according to role permissions.
                   </p>
                 </div>
               </div>
 
-              {/* Card 2 */}
               <div className={styles.featureCard} style={{ backgroundColor: '#ffffff' }}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>vpn_key</span>
+                    <span className="material-symbols-outlined">account_box</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Authority Authentication</h3>
+                  <h3 className={styles.cardTitle}>Attendance &amp; Production Reporting Flow</h3>
                   <p className={styles.cardDesc}>
-                    Statutory credential verification, multi-factor tokens, and cryptographic session management.
+                    Mine managers manage and submit attendance and production reports directly through the individual mine dashboard. Relevant reports are then made available to company and central authority dashboards for aggregate operational oversight.
                   </p>
                 </div>
               </div>
 
-              {/* Card 3 */}
               <div className={styles.featureCard} style={{ backgroundColor: '#ffffff' }}>
                 <div>
                   <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>history_edu</span>
+                    <span className="material-symbols-outlined">nature</span>
                   </div>
-                  <h3 className={styles.cardTitle}>Audit Trail Verification</h3>
+                  <h3 className={styles.cardTitle}>Environmental Responsibility</h3>
                   <p className={styles.cardDesc}>
-                    Immutable log records for all statutory sign-offs, modifications, and enforcement submissions.
+                    Environmental monitoring covers indicators such as pollution metrics, water usage, and land reclamation metrics, tracked separately from occupational safety records while contributing to comprehensive operational transparency.
                   </p>
                 </div>
               </div>
+            </div>
 
-              {/* Card 4 */}
-              <div className={styles.featureCard} style={{ backgroundColor: '#ffffff' }}>
-                <div>
-                  <div className={styles.iconBox}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>fact_check</span>
+            {/* Block F: Role-Based Monitoring (RBAC) */}
+            <div className={styles.rbacSection}>
+              <h3 className={styles.rbacSectionTitle}>Role-Based Monitoring (RBAC Dashboard Architecture)</h3>
+              <p className={styles.sectionDesc} style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+                Access controls ensure strict data governance where users access tools and data appropriate to their jurisdiction.
+              </p>
+              <div className={styles.grid3}>
+                <div className={styles.rbacCard}>
+                  <div className={styles.rbacHeader}>
+                    <span className="material-symbols-outlined">foundation</span>
+                    <h4>Individual Mine Dashboard</h4>
                   </div>
-                  <h3 className={styles.cardTitle}>Inspection &amp; Compliance Tracking</h3>
                   <p className={styles.cardDesc}>
-                    Manage mine inspections, identify violations, track corrective actions, and monitor compliance status from a unified platform.
+                    Access is strictly scoped to the manager's assigned mine, covering field operations, shift attendance rosters, production reports, and local incident dispatch.
+                  </p>
+                </div>
+
+                <div className={styles.rbacCard}>
+                  <div className={styles.rbacHeader}>
+                    <span className="material-symbols-outlined">corporate_fare</span>
+                    <h4>Company Dashboard</h4>
+                  </div>
+                  <p className={styles.cardDesc}>
+                    Authorized company users access aggregated visibility into the mines and operational reports associated specifically with their corporate mining enterprise.
+                  </p>
+                </div>
+
+                <div className={styles.rbacCard}>
+                  <div className={styles.rbacHeader}>
+                    <span className="material-symbols-outlined">verified_user</span>
+                    <h4>Centralized Authority Dashboard</h4>
+                  </div>
+                  <p className={styles.cardDesc}>
+                    Centralized regulatory authority users have the broader centralized monitoring view across all monitored statutory mines for national safety enforcement.
                   </p>
                 </div>
               </div>
@@ -470,70 +570,7 @@ export default function LandingPage({ onNavigateToLogin }) {
           </div>
         </section>
 
-        {/* SECTION 5: HOW THE PLATFORM OPERATES */}
-        <section className={styles.sectionSoft}>
-          <div className={styles.sectionContainer}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTag}>
-                Operational Flow Architecture
-              </div>
-              <h2 className={styles.sectionTitle}>
-                How the Platform Operates
-              </h2>
-              <p className={styles.sectionDesc}>
-                Seamless end-to-end flow from field data capture to national regulatory governance.
-              </p>
-            </div>
-
-            <div className={styles.grid4}>
-              <div className={styles.stepCard}>
-                <div className={styles.stepHeader}>
-                  <span className={styles.stepNumber}>STEP 01</span>
-                  <span className={`material-symbols-outlined ${styles.stepIcon}`}>app_registration</span>
-                </div>
-                <h3 className={styles.cardTitle}>Field Submission</h3>
-                <p className={styles.cardDesc}>
-                  Field officers and safety inspectors log real-time digital inspection logs, geo-tagged photos, and shift parameters directly from mine sites.
-                </p>
-              </div>
-
-              <div className={styles.stepCard}>
-                <div className={styles.stepHeader}>
-                  <span className={styles.stepNumber}>STEP 02</span>
-                  <span className={`material-symbols-outlined ${styles.stepIcon}`}>hub</span>
-                </div>
-                <h3 className={styles.cardTitle}>Centralized Processing</h3>
-                <p className={styles.cardDesc}>
-                  Automated validation verifies compliance benchmarks, aggregates sensory logs, and indexes incident documentation in accordance with DGMS norms.
-                </p>
-              </div>
-
-              <div className={styles.stepCard}>
-                <div className={styles.stepHeader}>
-                  <span className={styles.stepNumber}>STEP 03</span>
-                  <span className={`material-symbols-outlined ${styles.stepIcon}`}>monitoring</span>
-                </div>
-                <h3 className={styles.cardTitle}>Safety &amp; Compliance Monitoring</h3>
-                <p className={styles.cardDesc}>
-                  Continuous evaluation tracks safety scorecards, statutory compliance deadlines, and anomaly detection across high-risk operational zones.
-                </p>
-              </div>
-
-              <div className={styles.stepCard}>
-                <div className={styles.stepHeader}>
-                  <span className={styles.stepNumber}>STEP 04</span>
-                  <span className={`material-symbols-outlined ${styles.stepIcon}`}>gavel</span>
-                </div>
-                <h3 className={styles.cardTitle}>Regulatory Decision Support</h3>
-                <p className={styles.cardDesc}>
-                  Executive dashboards and automated notices empower authorities to issue corrective directives and enforce statutory safety mandates.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 6: FINAL CALL TO ACTION */}
+        {/* SECTION 5: FINAL CALL TO ACTION */}
         <section className={styles.sectionWhite}>
           <div className={styles.ctaContainer}>
             <div className={styles.ctaCard}>
@@ -574,7 +611,7 @@ export default function LandingPage({ onNavigateToLogin }) {
                   src="/logo.png"
                 />
                 <span className={styles.brandTitle} style={{ fontSize: '15px' }}>
-                  Mining Intelligence and Operational Visibilty Analytics
+                  Mining Intelligence and Operational Visibility Analytics
                 </span>
               </div>
               <p className={styles.cardDesc} style={{ fontSize: '12px', marginBottom: '1rem' }}>
@@ -585,19 +622,18 @@ export default function LandingPage({ onNavigateToLogin }) {
             <div>
               <div className={styles.footerTitle}>Portal Directives</div>
               <ul className={styles.footerList}>
-                <li><a className={styles.footerLink} href="#platform-overview">About</a></li>
-                <li><a className={styles.footerLink} href="#platform-overview">Features</a></li>
-                <li><a className={styles.footerLink} href="#platform-overview">Safety &amp; Compliance</a></li>
-                <li><a className={styles.footerLink} href="#footer">Contact</a></li>
+                <li><a className={styles.footerLink} href="#about">About</a></li>
+                <li><a className={styles.footerLink} href="#features">Features</a></li>
+                <li><a className={styles.footerLink} href="#safety-compliance">Safety &amp; Compliance</a></li>
               </ul>
             </div>
 
             <div>
               <div className={styles.footerTitle}>Statutory &amp; Legal</div>
               <ul className={styles.footerList}>
-                <li><a className={styles.footerLink} href="#">Portal Guidelines</a></li>
-                <li><a className={styles.footerLink} href="#">Accessibility Statement</a></li>
-                <li><a className={styles.footerLink} href="#">Privacy Policy</a></li>
+                <li><a className={styles.footerLink} href="#home">Portal Guidelines</a></li>
+                <li><a className={styles.footerLink} href="#home">Accessibility Statement</a></li>
+                <li><a className={styles.footerLink} href="#home">Privacy Policy</a></li>
                 <li>
                   <button onClick={handleLoginClick} className={styles.footerLink}>
                     Authority Login

@@ -34,57 +34,75 @@ import './styles/inspections.css';
 import './styles/incidents.css';
 import './styles/attendance.css';
 
+const PUBLIC_LANDING_SECTIONS = new Set([
+  '',
+  'landing',
+  'home',
+  'about',
+  'features',
+  'safety-compliance',
+  'contact',
+  'platform-overview',
+  'footer'
+]);
+
 function parseCurrentRoute() {
   const path = window.location.pathname.replace(/^\/+/, '');
   const hash = window.location.hash.replace(/^#\/?/, '');
-  const routeStr = path || hash;
 
-  if (routeStr === 'login') {
-    return { tab: 'login', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'mine-dashboard') {
-    return { tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === '' || routeStr === 'home') {
+  // Any public landing section hash or path takes priority to keep user on LandingPage
+  if (PUBLIC_LANDING_SECTIONS.has(hash) || PUBLIC_LANDING_SECTIONS.has(path) || path === '' || path === 'home') {
+    if (typeof window !== 'undefined' && window.location.pathname !== '/' && (PUBLIC_LANDING_SECTIONS.has(hash) || path === 'about' || path === 'features' || path === 'safety-compliance' || path === 'home')) {
+      const newUrl = '/' + (hash ? '#' + hash : '');
+      window.history.replaceState(null, '', newUrl);
+    }
     return { tab: 'landing', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr.startsWith('contractors/')) {
-    const contractorId = routeStr.replace('contractors/', '');
+  }
+
+  if (path === 'login') {
+    return { tab: 'login', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+  } else if (path === 'mine-dashboard') {
+    return { tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+  } else if (path.startsWith('contractors/')) {
+    const contractorId = path.replace('contractors/', '');
     return { tab: 'contractors', mineId: null, inspectionId: null, incidentId: null, contractorId, grievanceId: null };
-  } else if (routeStr === 'contractors') {
+  } else if (path === 'contractors') {
     return { tab: 'contractors', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr.startsWith('grievances/')) {
-    const submissionId = routeStr.replace('grievances/', '');
+  } else if (path.startsWith('grievances/')) {
+    const submissionId = path.replace('grievances/', '');
     return { tab: 'grievances', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: submissionId };
-  } else if (routeStr === 'grievances') {
+  } else if (path === 'grievances') {
     return { tab: 'grievances', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr.startsWith('incidents/')) {
-    const submissionId = routeStr.replace('incidents/', '');
+  } else if (path.startsWith('incidents/')) {
+    const submissionId = path.replace('incidents/', '');
     return { tab: 'incidents', mineId: null, inspectionId: null, incidentId: submissionId, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'incidents') {
+  } else if (path === 'incidents') {
     return { tab: 'incidents', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr.startsWith('inspections/')) {
-    const submissionId = routeStr.replace('inspections/', '');
+  } else if (path.startsWith('inspections/')) {
+    const submissionId = path.replace('inspections/', '');
     return { tab: 'inspections', mineId: null, inspectionId: submissionId, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'inspections') {
+  } else if (path === 'inspections') {
     return { tab: 'inspections', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'attendance-workforce' || routeStr === 'workforce' || routeStr === 'attendance') {
+  } else if (path === 'attendance-workforce' || path === 'workforce' || path === 'attendance') {
     return { tab: 'attendance-workforce', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'safety-violations' || routeStr === 'violations') {
+  } else if (path === 'safety-violations' || path === 'violations') {
     return { tab: 'violations', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'corrective-actions') {
+  } else if (path === 'corrective-actions') {
     return { tab: 'corrective-actions', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr.startsWith('mine/')) {
-    const mineId = routeStr.replace('mine/', '');
+  } else if (path.startsWith('mine/')) {
+    const mineId = path.replace('mine/', '');
     return { tab: 'monitoring', mineId, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'live-map') {
+  } else if (path === 'live-map') {
     if (typeof window !== 'undefined' && window.history?.replaceState) {
       window.history.replaceState(null, '', '/mine-monitoring');
     }
     return { tab: 'monitoring', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null, initialView: 'map' };
-  } else if (routeStr === 'mine-monitoring' || routeStr === 'monitoring') {
+  } else if (path === 'mine-monitoring' || path === 'monitoring') {
     return { tab: 'monitoring', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
-  } else if (routeStr === 'overview') {
+  } else if (path === 'overview') {
     return { tab: 'overview', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
   } else {
-    return { tab: routeStr, mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
+    return { tab: path || 'landing', mineId: null, inspectionId: null, incidentId: null, contractorId: null, grievanceId: null };
   }
 }
 
@@ -244,7 +262,7 @@ export default function App() {
           onBackToLanding={navigateToLanding}
         />
       );
-    } else if (routeState.tab === 'landing') {
+    } else if (routeState.tab === 'landing' || PUBLIC_LANDING_SECTIONS.has(routeState.tab)) {
       return (
         <LandingPage
           onNavigateToLogin={navigateToLogin}
